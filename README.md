@@ -32,19 +32,20 @@ A production-ready real-time chat application featuring private & group chat, on
 - Optimistic UI updates
 - Multi-tab awareness
 
+## Prerequisites
+
+- Node.js (v18 or higher)
+- MongoDB (running locally on port 27017)
+
 ## Quick Start
 
 1. Clone the repository
 2. Copy environment files:
    ```bash
-   cp server/.env.example server/.env
-   cp client/.env.example client/.env
+   cp server/env.example server/.env
+   cp client/env.example client/.env
    ```
-3. Start MongoDB:
-   ```bash
-   docker compose up -d
-   ```
-4. Install dependencies:
+3. Install dependencies:
    ```bash
    # Server
    cd server && npm install
@@ -52,7 +53,7 @@ A production-ready real-time chat application featuring private & group chat, on
    # Client
    cd client && npm install
    ```
-5. Start development servers:
+4. Start development servers:
    ```bash
    # Server (port 4000)
    cd server && npm run start:dev
