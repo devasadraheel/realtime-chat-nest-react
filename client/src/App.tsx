@@ -1,29 +1,37 @@
-import { useState } from 'react'
-import './App.css'
+import { QueryClientProvider } from '@tanstack/react-query';
+import { queryClient } from './lib/queryClient';
+import { useAuthStore } from './store/auth.store';
+import { isCallbackPage } from './lib/auth';
+import { LoginPage } from './pages/LoginPage';
+import { ChatPage } from './pages/ChatPage';
+import { CallbackPage } from './pages/CallbackPage';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const { isAuthenticated, isLoading } = useAuthStore();
 
-  return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-      <div className="max-w-md mx-auto bg-white rounded-xl shadow-md p-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-6 text-center">
-          Realtime Chat App
-        </h1>
+  // Handle callback page
+  if (isCallbackPage()) {
+    return <CallbackPage />;
+  }
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <button
-            onClick={() => setCount((count) => count + 1)}
-            className="btn btn-primary"
-          >
-            Count is {count}
-          </button>
-          <p className="mt-4 text-gray-600">
-            Edit <code className="bg-gray-100 px-2 py-1 rounded">src/App.tsx</code> and save to test HMR
-          </p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading...</p>
         </div>
       </div>
-    </div>
-  )
+    );
+  }
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <div className="min-h-screen bg-gray-50">
+        {isAuthenticated ? <ChatPage /> : <LoginPage />}
+      </div>
+    </QueryClientProvider>
+  );
 }
 
-export default App
+export default App;
