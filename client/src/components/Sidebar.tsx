@@ -1,6 +1,7 @@
 import { useConversations } from '../features/useChat';
 import { useAuthStore } from '../store/auth.store';
 import { useJoinConversation } from '../features/useChat';
+import { PresenceIndicator } from './PresenceIndicator';
 
 export function Sidebar() {
   const { user } = useAuthStore();
@@ -120,8 +121,10 @@ function ConversationItem({ conversation, onClick }: ConversationItemProps) {
               {displayName.charAt(0).toUpperCase()}
             </span>
           </div>
-          {!isGroup && otherParticipants[0]?.status === 'online' && (
-            <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></div>
+          {!isGroup && otherParticipants[0] && (
+            <div className="absolute -bottom-1 -right-1">
+              <PresenceIndicator userId={otherParticipants[0]._id} />
+            </div>
           )}
         </div>
 

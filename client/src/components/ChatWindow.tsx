@@ -3,6 +3,7 @@ import { useChatStore } from '../store/chat.store';
 import { useAuthStore } from '../store/auth.store';
 import { MessageItem } from './MessageItem';
 import { MessageComposer } from './MessageComposer';
+import { TypingIndicator } from './TypingIndicator';
 
 export function ChatWindow() {
   const { 
@@ -105,6 +106,12 @@ export function ChatWindow() {
             />
           ))
         )}
+        
+        {/* Typing Indicator */}
+        {currentConversationId && (
+          <TypingIndicator conversationId={currentConversationId} />
+        )}
+        
         <div ref={messagesEndRef} />
       </div>
 
