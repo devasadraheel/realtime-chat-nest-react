@@ -5,6 +5,7 @@ import { isCallbackPage } from './lib/auth';
 import { LoginPage } from './pages/LoginPage';
 import { ChatPage } from './pages/ChatPage';
 import { CallbackPage } from './pages/CallbackPage';
+import { ToastContainer } from './components/Toast';
 
 function App() {
   const { isAuthenticated, isLoading } = useAuthStore();
@@ -29,6 +30,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <div className="min-h-screen bg-gray-50">
         {isAuthenticated ? <ChatPage /> : <LoginPage />}
+        <ToastContainer />
       </div>
     </QueryClientProvider>
   );
